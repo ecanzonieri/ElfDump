@@ -1,7 +1,7 @@
 ======
-README
+ElfDump
 ======
-Introduction: what is Elfdump?
+what is Elfdump?
 ---------------------------------
 
 Elfdump is a volatility plug-in to dump elf executables from memory dump.

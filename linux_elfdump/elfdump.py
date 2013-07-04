@@ -146,6 +146,7 @@ class linux_elf_dump(linux_pslist.linux_pslist):
             debug.info(phdr_entry)
         outfile.close()
 
+    ###Not useful for now, run the dumped program using LD_BIND_NOW = 1
     def restorePlt(self, filename, proc_as):
         outfile = io.FileIO(filename, 'rb+')
         #Starting from PHdr PT_DYNAMIC I get the dynamic linking information, I am interested in
@@ -190,10 +191,10 @@ class linux_elf_dump(linux_pslist.linux_pslist):
             #create a the elf file of the process
             file_name = task.comm + '.dump'
             file_path = os.path.join(self._config.DUMP_DIR, file_name)
-            self.dumpFromPhdr(proc_as, file_name)
+            self.dumpFromPhdr(proc_as, file_path)
             debug.info("Reset elf\n")
-            self.resetElfHdr(file_name)
-            self.restorePlt(file_name, proc_as)
+            self.resetElfHdr(file_path)
+            self.restorePlt(file_path, proc_as)
             self.table_row(outfd, task.obj_offset,
                 task.comm,
                 str(task.pid),
