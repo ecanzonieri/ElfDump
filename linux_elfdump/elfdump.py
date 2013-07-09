@@ -8,7 +8,6 @@ import volatility.obj as obj
 import volatility.plugins.linux.flags as linux_flags
 import volatility.plugins.linux.common as linux_common
 import volatility.plugins.linux.pslist as linux_pslist
-import auxiliary_vector as auxv_t
 import Elf32Struct
 import volatility.debug as debug
 import struct
@@ -41,7 +40,7 @@ class linux_elf_dump(linux_pslist.linux_pslist):
             auxv_value_raw = proc_as.read(entry+0x04, 0x04)
             auxv_value = struct.unpack("<I", auxv_value_raw)[0]
 #                debug.info("Auxv value = %x\n" % auxv_value)
-            if auxv_type == auxv_t.a_type["AT_PAGESZ"] and auxv_value == 4096:
+            if auxv_type == Elf32Struct.a_type["AT_PAGESZ"] and auxv_value == 4096:
                 found = True
             entry -= 0x01
             if entry <= (stackbase):
@@ -53,7 +52,7 @@ class linux_elf_dump(linux_pslist.linux_pslist):
             auxv_type = struct.unpack("<i", auxv_type_raw)[0]
             auxv_value_raw = proc_as.read(entry+0x04, 0x04)
             auxv_value = struct.unpack("<I", auxv_value_raw)[0]
-            if auxv_type == auxv_t.a_type["AT_NULL"] and auxv_value == 0x00:
+            if auxv_type == Elf32Struct.a_type["AT_NULL"] and auxv_value == 0x00:
                 found = True
                 bottom_auxv = entry
             entry -= 0x01
@@ -65,17 +64,17 @@ class linux_elf_dump(linux_pslist.linux_pslist):
             auxv_type = struct.unpack("<I", auxv_type_raw)[0]
             auxv_value_raw = proc_as.read(entry+0x04, 0x04)
             auxv_value = struct.unpack("<I", auxv_value_raw)[0]
-            if auxv_type == auxv_t.a_type["AT_PHDR"]:
+            if auxv_type == Elf32Struct.a_type["AT_PHDR"]:
                 self.elfInfo["AT_PHDR"] = auxv_value
-            elif auxv_type == auxv_t.a_type["AT_PHENT"]:
+            elif auxv_type == Elf32Struct.a_type["AT_PHENT"]:
                 self.elfInfo["AT_PHENT"] = auxv_value
-            elif auxv_type == auxv_t.a_type["AT_PHNUM"]:
+            elif auxv_type == Elf32Struct.a_type["AT_PHNUM"]:
                 self.elfInfo["AT_PHNUM"] = auxv_value
-            elif auxv_type == auxv_t.a_type["AT_BASE"]:
+            elif auxv_type == Elf32Struct.a_type["AT_BASE"]:
                 self.elfInfo["AT_BASE"] = auxv_value
-            elif auxv_type == auxv_t.a_type["AT_ENTRY"] and auxv_value >= 0x8048000:
+            elif auxv_type == Elf32Struct.a_type["AT_ENTRY"] and auxv_value >= 0x8048000:
                 self.elfInfo["AT_ENTRY"] = auxv_value
-            elif auxv_type == auxv_t.a_type["AT_RANDOM"]:
+            elif auxv_type == Elf32Struct.a_type["AT_RANDOM"]:
                 self.elfInfo["AT_RANDOM"] = auxv_value
             entry += 0x01
             if len(self.elfInfo) == 6:
