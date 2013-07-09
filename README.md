@@ -32,6 +32,3 @@ Limitations
 - No lazy relocation.
 - Sections reconstruction is not implemented.
 - No ELF 64-bit support.
-
-:Author:
-	Enrico Canzonieri <canzonie@eurecom.fr> 
