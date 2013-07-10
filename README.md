@@ -1,7 +1,7 @@
 ======
 ElfDump
 ======
-what is Elfdump?
+What is Elfdump?
 ---------------------------------
 
 Elfdump is a volatility plug-in to dump elf executables from memory dump.
@@ -10,10 +10,7 @@ Installing
 ----------
 
 You have to install volatility last version from http://code.google.com/p/volatility/ . 
-To install the plug-in is enough to copy the directory linux_elfdump in volatility_root/volatility/plugins/
-Address Space Layout Randomization is not supported: disable it for your tests!
-	
-	echo 0 > /proc/sys/kernel/randomize_va_space
+To install the plug-in is enough to copy the directory linux_elf_dump in volatility_root/volatility/plugins/
 
 How to use it?
 --------------
@@ -28,7 +25,5 @@ To execute the dumped elf it is necessary to set the environment variable **LD_B
 
 Limitations
 -----------
-- No ASLR support.
 - No lazy relocation.
 - Sections reconstruction is not implemented.
-- No ELF 64-bit support.
