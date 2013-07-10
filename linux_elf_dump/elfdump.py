@@ -35,6 +35,10 @@ class linux_elf_dump(linux_pslist.linux_pslist):
         if self.elfInfo['ARCH'] == 'x86':
             entry_size = 0x04
             format = "<I"
+            for vma in task.get_proc_maps():
+                if vma.vm_start <= task.mm.start_stack and vma.vm_end >= task.mm.start_stack:
+                    entry = vma.vm_end
+                    stackbase = vma.vm_start
         else:
             entry_size = 0x08
             format = "<Q"
