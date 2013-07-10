@@ -18,8 +18,10 @@ How to use it?
 You can run volatility using linux_pslist or linux_psaux to get the PID of the process that you would dump.
 The command used to dump the process in volatility is linux_elf_dump.
 
--p PID		       Operate on these Process IDs (comma-separated)
--D Directory           Output directory
+Available options:
+
+    -p PID                  Operate on these Process IDs (comma-separated)
+    -D Directory            Output directory
 
 To execute the dumped elf it is necessary to set the environment variable **LD_BIND_NOW=1**, in order to force the dynamic linker to process all relocation before transferring control to the program (no lazy relocation).
 
